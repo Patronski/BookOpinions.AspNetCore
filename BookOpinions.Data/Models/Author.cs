@@ -5,16 +5,13 @@
 
     public class Author
     {
-        public Author()
-        {
-            this.Books = new HashSet<Book>();
-        }
-
         public int Id { get; set; }
 
         [Required]
+        [MinLength(DataConstants.NameMinLength)]
+        [MaxLength(DataConstants.NameMaxLength)]
         public string Name { get; set; }
 
-        public virtual ICollection<Book> Books { get; set; }
+        public virtual List<BookAuthor> Books { get; set; } = new List<BookAuthor>();
     }
 }
