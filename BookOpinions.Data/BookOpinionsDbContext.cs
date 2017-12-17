@@ -35,6 +35,30 @@ namespace BookOpinions.Data
                 .WithMany(a => a.Books)
                 .HasForeignKey(ba => ba.AuthorId);
 
+            builder
+                .Entity<Opinion>()
+                .HasOne(o => o.Book)
+                .WithMany(b => b.Opinions)
+                .HasForeignKey(o => o.BookId);
+
+            builder
+                .Entity<Opinion>()
+                .HasOne(o => o.User)
+                .WithMany(u => u.Opinions)
+                .HasForeignKey(o => o.UserId);
+
+            builder
+                .Entity<Rating>()
+                .HasOne(r => r.Book)
+                .WithMany(b => b.Rating)
+                .HasForeignKey(r => r.BookId);
+
+            builder
+                .Entity<Rating>()
+                .HasOne(r => r.User)
+                .WithMany(u => u.Ratings)
+                .HasForeignKey(r => r.UserId);
+
             base.OnModelCreating(builder);
         }
     }

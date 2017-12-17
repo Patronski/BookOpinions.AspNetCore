@@ -8,10 +8,14 @@ namespace BookOpinions.Data.Models
 
         [Required]
         [Range(1, 5)]
-        public int Rate { get; set; }
+        public int Value { get; set; }
+
+        public int BookId { get; set; }
 
         [Required]
         public virtual Book Book { get; set; }
+
+        public string UserId { get; set; }
 
         [Required]
         public virtual User User { get; set; }
