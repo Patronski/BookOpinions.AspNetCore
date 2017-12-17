@@ -16,6 +16,7 @@ namespace BookOpinions.Data
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Opinion> Opinions { get; set; }
+        //public virtual DbSet<Rating> Ratings{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -42,16 +43,16 @@ namespace BookOpinions.Data
                 .HasForeignKey(o => o.BookId);
 
             builder
-                .Entity<Opinion>()
-                .HasOne(o => o.User)
-                .WithMany(u => u.Opinions)
-                .HasForeignKey(o => o.UserId);
-
-            builder
                 .Entity<Rating>()
                 .HasOne(r => r.Book)
                 .WithMany(b => b.Rating)
                 .HasForeignKey(r => r.BookId);
+
+            builder
+                .Entity<Opinion>()
+                .HasOne(o => o.User)
+                .WithMany(u => u.Opinions)
+                .HasForeignKey(o => o.UserId);
 
             builder
                 .Entity<Rating>()

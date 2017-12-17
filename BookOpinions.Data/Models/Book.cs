@@ -5,13 +5,6 @@
 
     public class Book
     {
-        //public Book()
-        //{
-        //    this.Authors = new HashSet<Author>();
-        //    this.Opinions = new HashSet<Opinion>();
-        //    this.Rating = new HashSet<Rating>();
-        //}
-
         public int Id { get; set; }
 
         [Required]
@@ -26,6 +19,6 @@
 
         public virtual List<Opinion> Opinions { get; set; } = new List<Opinion>();
 
-        public virtual List<Rating> Rating { get; set; } = new List<Models.Rating>();
+        public virtual List<Rating> Rating { get; set; } = new List<Rating>();
     }
 }

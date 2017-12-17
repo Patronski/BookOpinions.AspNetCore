@@ -11,8 +11,8 @@ using System;
 namespace BookOpinions.Data.Migrations
 {
     [DbContext(typeof(BookOpinionsDbContext))]
-    [Migration("20171217104816_InitalTables")]
-    partial class InitalTables
+    [Migration("20171217215130_new")]
+    partial class @new
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
