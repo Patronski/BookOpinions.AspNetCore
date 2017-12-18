@@ -1,4 +1,4 @@
-﻿namespace BookOpinions.Web.Infrastructure.Mapping
+﻿namespace BookOpinions.Common.Mapping
 {
     public interface IMapFrom<TModel>
     {

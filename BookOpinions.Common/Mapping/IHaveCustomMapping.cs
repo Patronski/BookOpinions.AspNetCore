@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace BookOpinions.Services
+namespace BookOpinions.Common.Mapping
 {
     public interface IHaveCustomMapping
     {

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using BookOpinions.Services;
 using System;
 using System.Linq;
+using BookOpinions.Common.Mapping;
 
 namespace BookOpinions.Web.Infrastructure.Mapping
 {

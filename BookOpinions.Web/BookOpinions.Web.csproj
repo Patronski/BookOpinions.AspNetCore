@@ -20,15 +20,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BookOpinions.Common\BookOpinions.Common.csproj" />
+    <ProjectReference Include="..\BookOpinions.Data\BookOpinions.Data.csproj" />
     <ProjectReference Include="..\BookOpinions.Services\BookOpinions.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\" />
-    <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\" />
     <Folder Include="Areas\Shop\Controllers\" />
     <Folder Include="Areas\Shop\Data\" />
     <Folder Include="Areas\Shop\Models\" />

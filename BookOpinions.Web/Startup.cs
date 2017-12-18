@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using BookOpinions.Services;
 using BookOpinions.Data;
 using BookOpinions.Data.Models;
 using BookOpinions.Web.Infrastructure.Extensions;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BookOpinions.Web
 {
@@ -32,7 +32,7 @@ namespace BookOpinions.Web
                 AddIdentity<User, IdentityRole>(options =>
                     {
                         options.Password.RequireDigit = false;
-                        options.Password.RequiredLength = Constants.PasswordMinLength;
+                        options.Password.RequiredLength = WebConstants.PasswordMinLength;
                         options.Password.RequireNonAlphanumeric = false;
                         options.Password.RequireUppercase = false;
                         options.Password.RequireLowercase = false;
@@ -42,7 +42,12 @@ namespace BookOpinions.Web
 
             services.AddAutoMapper();
 
-            services.AddMvc();
+            services.AddDomainServices();
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -5,5 +5,7 @@
         public const string TrainerRole = "Trainer";
         public const string BlogAuthorRole = "BlogAuthor";
         public const string AdminRole = "Admin";
+
+        public const int PasswordMinLength = 4;
     }
 }
