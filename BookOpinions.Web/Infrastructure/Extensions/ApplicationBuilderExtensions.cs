@@ -25,8 +25,9 @@ namespace BookOpinions.Web.Infrastructure.Extensions
                         string[] roles =
                         {
                             WebConstants.AdminRole,
-                            //WebConstants.BlogAuthorRole,
-                            //WebConstants.TrainerRole
+                            WebConstants.BlogAuthorRole,
+                            WebConstants.TrainerRole
+                            //TODO: configurate proper roles
                         };
 
                         foreach (var role in roles)
@@ -42,16 +43,16 @@ namespace BookOpinions.Web.Infrastructure.Extensions
                             }
                         }
 
-                        var adminEmail = "admin@mysite.com";
+                        var adminEmail = "donstz@yahoo.com";
 
-                        var adminUser = await userManager.FindByNameAsync(adminEmail);
+                        var adminUser = await userManager.FindByEmailAsync(adminEmail);
 
                         if (adminUser == null)
                         {
                             adminUser = new User
                             {
-                                //Name = "Admin",
-                                //Birtdate = new DateTime(1988, 08, 29, 00, 00, 00),
+                                Name = "Admin",
+                                Birtdate = new DateTime(1988, 08, 29, 00, 00, 00),
                                 Email = adminEmail,
                                 UserName = WebConstants.AdminRole
                             };

@@ -11,9 +11,10 @@ using System;
 namespace BookOpinions.Data.Migrations
 {
     [DbContext(typeof(BookOpinionsDbContext))]
-    partial class BookOpinionsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171218120650_changeUser")]
+    partial class changeUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
