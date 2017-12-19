@@ -8,20 +8,16 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BookOpinions.Services.Implementations
 {
-    public class HomeService : IHomeService
+    public class HomeService : Service, IHomeService
     {
-        private readonly BookOpinionsDbContext db;
-        private readonly UserManager<User> userManager;
-
         public HomeService(BookOpinionsDbContext db, UserManager<User> userManager)
+            :base(db, userManager)
         {
-            this.db = db;
-            this.userManager = userManager;
         }
 
         public IEnumerable<Book> GetPopularBooks(int popularBooksCount)
         {
-            var books = this.db
+            var books = Db
                 .Books
                 .Take(popularBooksCount)
                 .ToList();

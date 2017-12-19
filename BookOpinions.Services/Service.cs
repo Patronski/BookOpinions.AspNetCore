@@ -1,20 +1,18 @@
 ﻿using BookOpinions.Data;
+using BookOpinions.Data.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace BookOpinions.Services
 {
     public abstract class Service
     {
-        private BookOpinionsDbContext context;
-        protected BookOpinionsDbContext Context => this.context;
+        protected readonly BookOpinionsDbContext Db;
+        protected readonly UserManager<User> UserManager;
 
-        public Service()
-            : this(new BookOpinionsDbContext())
+        protected Service(BookOpinionsDbContext db, UserManager<User> userManager)
         {
-        }
-
-        public Service(BookOpinionsDbContext context)
-        {
-            this.context = context;
+            this.Db = db;
+            this.UserManager = userManager;
         }
     }
 }

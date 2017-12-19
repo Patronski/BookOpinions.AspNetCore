@@ -14,5 +14,7 @@
         public const string AdminArea = "Admin";
 
         public const int PopularBooksCount = 12;
+
+        public const int BooksAllBooksOnPage = 6 * 3;
     }
 }

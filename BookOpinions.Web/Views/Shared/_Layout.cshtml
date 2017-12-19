@@ -26,15 +26,29 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+                <img src="~/images/book-xxl.png" alt="logo" asp-append-version="true" class="navbar-brand" />
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Book Opinions</a>
+                <img src="~/images/book-xxl.png" alt="logo" asp-append-version="true" class="navbar-brand" />
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">Books <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            @*<li>@Html.ActionLink("Our choice", "All", "Books")</li>*@
+                            <li><a asp-area="" asp-controller="Books" asp-action="All">Our choice</a></li>
+                            <li class="divider"></li>
+                            @*<li><a href="/book/all">All Books</a></li>*@
+                            <li><a asp-area="" asp-controller="Books" asp-action="All">All Books</a></li>
+                            <li><a asp-area="" asp-controller="Books" asp-action="Add">Add Book</a></li>
+                            @*<li>@Html.ActionLink("Add Book", "Add", "Books")</li>*@
+                        </ul>
+                    </li>
                     @if (User.IsInRole(WebConstants.AdminRole))
-                    {
-                        <li><a asp-area="Admin" asp-controller="Users" asp-action="Index">Users</a></li>
-                    }
+    {
+                <li><a asp-area="Admin" asp-controller="Users" asp-action="Index">Users</a></li>
+}
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
