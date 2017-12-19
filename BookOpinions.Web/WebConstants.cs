@@ -9,8 +9,10 @@
         public const int PasswordMinLength = 4;
 
         public const string TempDataSuccessMessageKey = "SuccessMessage";
-        //public const string TempDataErrorMessageKey = "ErrorMessage";
+        public const string TempDataErrorMessageKey = "ErrorMessage";
 
         public const string AdminArea = "Admin";
+
+        public const int PopularBooksCount = 12;
     }
 }

@@ -1,4 +1,5 @@
-﻿using BookOpinions.Common.Mapping;
+﻿using System.Collections.Generic;
+using BookOpinions.Common.Mapping;
 using BookOpinions.Data.Models;
 
 namespace BookOpinions.Services.Admin.Models
@@ -8,5 +9,6 @@ namespace BookOpinions.Services.Admin.Models
         public string Id { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
+        public IList<string> CurrentRoles { get; set; }
     }
 }

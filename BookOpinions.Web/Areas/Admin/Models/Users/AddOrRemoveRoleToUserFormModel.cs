@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookOpinions.Web.Areas.Admin.Models.Users
 {
-    public class AddUserToRoleFormModel
+    public class AddOrRemoveRoleToUserFormModel
     {
         [Required]
         public string UserId { get; set; }

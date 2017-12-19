@@ -52,7 +52,7 @@ namespace BookOpinions.Web.Areas.Admin.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken] no need for this, we have global filter
-        public async Task<IActionResult> AddToRole(AddUserToRoleFormModel model)
+        public async Task<IActionResult> AddToRole(AddOrRemoveRoleToUserFormModel model)
         {
             var roleExists = await this.roleManager.RoleExistsAsync(model.Role);
             var user = await this.userManager.FindByIdAsync(model.UserId);
@@ -67,9 +67,39 @@ namespace BookOpinions.Web.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            await this.userManager.AddToRoleAsync(user, model.Role);
+            var identityResult = await this.userManager.AddToRoleAsync(user, model.Role);
 
-            TempData.AddSuccessMessage($"User {user.Name} successfully added to the {model.Role} role");
+            if (identityResult.Succeeded)
+                TempData.AddSuccessMessage($"The {model.Role} role was successfully added to User {user.Name}!");
+            else
+                TempData.AddErrorMessage($"The {model.Role} role was not added tor User {user.Name}!");
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveFromRole(AddOrRemoveRoleToUserFormModel model)
+        {
+            var roleExists = await this.roleManager.RoleExistsAsync(model.Role);
+            var user = await this.userManager.FindByIdAsync(model.UserId);
+            var userExists = user != null;
+
+            if (!roleExists || !userExists)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid identity details!");
+            }
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var identityResult = await this.userManager.RemoveFromRoleAsync(user, model.Role);
+
+            if (identityResult.Succeeded)
+                TempData.AddSuccessMessage($"The {model.Role} role was successfully removed from User {user.Name}!");
+            else
+                TempData.AddErrorMessage($"The {model.Role} role was not removed or didn't exist for User {user.Name}!");
+
             return RedirectToAction(nameof(Index));
         }
     }
