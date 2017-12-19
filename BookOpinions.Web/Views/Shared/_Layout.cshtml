@@ -40,13 +40,19 @@
             </div>
         </div>
     </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2017 - BookOpinions</p>
-        </footer>
-    </div>
+<div class="container body-content">
+    @if (TempData.ContainsKey(WebConstants.TempDataSuccessMessageKey))
+    {
+        <div class="alert alert-success">
+            @TempData[WebConstants.TempDataSuccessMessageKey]
+        </div>
+    }
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; 2017 - BookOpinions</p>
+    </footer>
+</div>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

@@ -1,4 +1,4 @@
-﻿@model AdminUserListingsViewModel
+﻿@model UserListingsViewModel
 
 @{
     ViewData["Title"] = "User Administration";
@@ -23,11 +23,11 @@
                 <th>
                     <form asp-controller="Users" asp-action="AddToRole" method="post">
                         <div class="row">
-                            <div class="col-md-10">
+                            <div class="col-md-9">
                                 <input type="hidden" name="UserId" value="@user.Id"/>
                                 <select name="Role" asp-items="Model.Roles" class="form-control"></select>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <input class="btn btn-sm btn-primary" type="submit" value="Add To Role" />
                             </div>
                         </div>

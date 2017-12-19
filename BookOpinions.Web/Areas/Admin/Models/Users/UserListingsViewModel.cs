@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BookOpinions.Web.Areas.Admin.Models.Users
 {
-    public class AdminUserListingsViewModel
+    public class UserListingsViewModel
     {
         public IEnumerable<AdminUserListingServiceModel> Users { get; set; }
         public IEnumerable<SelectListItem> Roles { get; set; }

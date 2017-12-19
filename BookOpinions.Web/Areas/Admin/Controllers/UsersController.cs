@@ -6,6 +6,7 @@ using BookOpinions.Data.Models;
 using BookOpinions.Services.Admin;
 using BookOpinions.Services.Admin.Models;
 using BookOpinions.Web.Areas.Admin.Models.Users;
+using BookOpinions.Web.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,9 +15,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookOpinions.Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = WebConstants.AdminRole)]
-    public class UsersController : Controller
+    public class UsersController : BaseAdminController
     {
         private readonly IAdminUsersService users;
         private readonly RoleManager<IdentityRole> roleManager;
@@ -44,7 +43,7 @@ namespace BookOpinions.Web.Areas.Admin.Controllers
                 })
                 .ToListAsync();
 
-            return View(new AdminUserListingsViewModel
+            return View(new UserListingsViewModel
             {
                 Users = users,
                 Roles = roles
@@ -70,7 +69,7 @@ namespace BookOpinions.Web.Areas.Admin.Controllers
 
             await this.userManager.AddToRoleAsync(user, model.Role);
 
-            //TODO: TempData 1:43
+            TempData.AddSuccessMessage($"User {user.Name} successfully added to the {model.Role} role");
             return RedirectToAction(nameof(Index));
         }
     }
