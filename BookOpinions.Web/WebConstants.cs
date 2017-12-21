@@ -22,8 +22,9 @@
 
         public const int PopularBooksCount = 12;
 
-        public const int BooksAllBooksOnPage = 6 * 3;
+        public const int BooksAllBooksOnPage = NumberOfBooksInRow * HomeAllBooksRowCount;
         public const int HomeIndexBooksRowCount = 2;
-        public const int NumberOfBooksInRow = 6;
+        public const int HomeAllBooksRowCount = 3;
+        public const int NumberOfBooksInRow = 4;
     }
 }

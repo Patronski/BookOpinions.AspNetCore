@@ -34,6 +34,15 @@
     }
 }
 
+.book-card {
+
+}
+
+.book-card .img-responsive {
+    height: 200px !important;
+    background-color: aliceblue;
+}
+
 #adminBookDetails {
     border: dashed 4px;
     color: coral;
@@ -44,14 +53,5 @@
     margin-top: 20px;
     padding: 20px;
     
-    background-color: lightgoldenrodyellow;
-}
-
-.image-card {
-    background-color: lightgoldenrodyellow;
-    margin-bottom: 5px;
-}
-
-.my-image {
-    max-height: 150px;
+    background-color: dimgrey;
 }
