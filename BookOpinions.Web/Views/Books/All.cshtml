@@ -1,12 +1,9 @@
 ﻿@model AllBooksViewModel
-@{
-    ViewData["Title"] = "All";
-}
 
 <div class="panel-title row well well-sm">
     @if (string.IsNullOrEmpty(Model.Search))
     {
-        <h2 class="col-lg-3">All</h2>
+        <h2 class="col-lg-3">All Books</h2>
     }
     else
     {
@@ -49,13 +46,13 @@
     </div>
 </div>
 
-@if (TempData["AddedBook"] != null || TempData["DeletedBook"] != null)
+@if (TempData[WebConstants.TempDataAddedBookMessageKey] != null || TempData[WebConstants.TempDataDeletedBookMessageKey] != null)
 {
     <div class="alert-success">
-        @TempData["AddedBook"]
+        @TempData[WebConstants.TempDataAddedBookMessageKey]
     </div>
     <div class="alert-success">
-        @TempData["DeletedBook"]
+        @TempData[WebConstants.TempDataDeletedBookMessageKey]
     </div>
 }
 
@@ -69,17 +66,15 @@
     <div class="row">
         @foreach (var book in Model.Books.Skip(j * picsInRow).Take(picsInRow))
         {
-            <div class="col-xs-6 col-md-2 image-card">
-                <p class="panel-title">@book.Title</p>
+            <div class="col-xs-6 col-md-2 center-block image-card">
                 <a href="/books/@book.Id">
+                    <p class="panel-title">@book.Title</p>
                     <img class="img-responsive my-image" alt="picture of @book.Title" src="@book.ImgUrl" />
                 </a>
-                <p>
-                    @Html.ActionLink("Learn more", "About", "books", routeValues: new { id = @book.Id }, htmlAttributes: new { @class = "btn btn-default" })
-                </p>
             </div>
         }
     </div>
+    <br />
 }
 
 @if (Model.Pager.EndPage > 1)
@@ -112,3 +107,8 @@
     </ul>
 }
 
+<button class="btn btn-primary btn-xs" routerLink="/books/add">Add book</button>
+<button class="btn btn-info btn-xs" (click)="hideme[i] = !hideme[i]">Details</button>
+<button class="btn btn-success btn-xs" (click)='addToMyBooks(book)'>Add to My Books</button>
+<button class="btn btn-warning btn-xs" (click)='editBook(book._id)'>Edit</button>
+<button class="btn btn-danger btn-xs" (click)='deleteBook(book._id)'>Delete</button>

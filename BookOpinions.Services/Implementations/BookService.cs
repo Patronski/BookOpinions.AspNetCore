@@ -18,51 +18,76 @@ namespace BookOpinions.Services.Implementations
         {
         }
 
-        public async Task<List<Book>> GetAllBooksBySortOrder(string sortOrder, string search)
+        public async Task<List<BooksAllSortedServiceModel>> GetAllBooksBySortOrder(string sortOrder, string search)
         {
-            var books = await Db.Books
-                        .Include(b => b.Authors)
-                        .ThenInclude(a => a.Author)
-                        .Include(b => b.Image)
-                        .ToListAsync();
+            //var books = Db.Books
+            //            .ProjectTo<BooksAllSortedServiceModel>();
+            //            //.Include(b => b.Authors)
+            //            //.ThenInclude(a => a.Author)
+            //            //.Include(b => b.Image)
+            List<BooksAllSortedServiceModel> books = new List<BooksAllSortedServiceModel>();
 
             var sortToLower = sortOrder?.ToLower();
             switch (sortToLower)
             {
                 case "author":
-                    books = books.OrderBy(sb => sb.Authors.Select(ba => ba.Author.Name)).ToList();
+                    books = await Db.Books
+                        .ProjectTo<BooksAllSortedServiceModel>()
+                        .OrderBy(b => b.AuthorName)
+                        .ToListAsync(); 
                     break;
                 case "title":
-                    books = books.OrderBy(sb => sb.Title).ToList();
+                    books = await Db.Books
+                        .ProjectTo<BooksAllSortedServiceModel>()
+                        .OrderBy(sb => sb.Title)
+                        .ToListAsync();
                     break;
                 case "newfirst":
-                    books.Reverse();
+                    books = await Db.Books
+                        .ProjectTo<BooksAllSortedServiceModel>()
+                        .Reverse()
+                        .ToListAsync();
                     break;
                 case "opinions":
-                    books = books.OrderByDescending(b => b.Opinions.Count).ToList();
+                    books = await Db.Books
+                        .ProjectTo<BooksAllSortedServiceModel>()
+                        .OrderByDescending(b => b.OpinionsCount)
+                        .ToListAsync();
                     break;
                 case "rating":
-                    books = books.OrderByDescending(b => b.Rating).ToList();
+                    books = await Db.Books
+                        .ProjectTo<BooksAllSortedServiceModel>()
+                        .OrderByDescending(b => b.RatingsCount)
+                        .ToListAsync();
                     break;
                 default:
+                    books = await Db.Books
+                        .ProjectTo<BooksAllSortedServiceModel>()
+                        .ToListAsync();
                     break;
             }
 
             if (!string.IsNullOrEmpty(search))
             {
-                var searchWords = search.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(w => w.ToLower());
+                var searchWords = search
+                                .Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries)
+                                .Select(w => w.ToLower());
+
                 books = books.Where(b =>
                 {
-                    var titleWords = b.Title.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(w => w.ToLower());
-                    var rezult = false;
+                    var titleWords = b.Title
+                                    .Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries)
+                                    .Select(w => w.ToLower());
+
+                    var result = false;
                     foreach (var titleWord in titleWords)
                     {
                         if (searchWords.Any(sw => titleWord.StartsWith(sw)))
                         {
-                            rezult = true;
+                            result = true;
                         }
                     }
-                    return rezult;
+                    return result; //TODO ..
                 })
                 .ToList();
             }

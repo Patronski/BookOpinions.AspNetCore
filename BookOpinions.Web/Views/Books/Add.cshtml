@@ -3,11 +3,10 @@
     ViewData["Title"] = "Add";
 }
 
-<h2>Add</h2>
-<h4>Book</h4>
+<h2 class="glyphicon glyphicon-book">Add Book</h2>
 <hr />
 <p>
-    <span class="alert-info">Be shure the book you want to add is not already added. Try to search it first @Html.ActionLink("here", "all", "books")!</span>
+    <span class="alert-info">Be shure the book you want to add is not already added. Try to search it first <a asp-action="All" class="glyphicon glyphicon-search">Here</a>!</span>
 </p>
 
 @*@using (Html.BeginForm())
@@ -28,7 +27,7 @@
             <div class="form-group row">
                 @Html.LabelFor(model => model.AuthorName, htmlAttributes: new { @class = "control-label col-md-2 col-xs-6" })
                 <div class="col-sm-5">
-                    @Html.EditorFor(model => model.AuthorName, new { htmlAttributes = new { @class = "form-control", placeholder = "Иван Вазов,Пешо,Любен Каравелов" } })
+                    @Html.EditorFor(model => model.AuthorName, new { htmlAttributes = new { @class = "form-control", placeholder = "Иван Вазов, Пешо, Любен Каравелов" } })
                     @Html.ValidationMessageFor(model => model.AuthorName, "", new { @class = "text-danger" })
                 </div>
             </div>

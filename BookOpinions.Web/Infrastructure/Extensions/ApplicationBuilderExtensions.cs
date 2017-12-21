@@ -27,7 +27,8 @@ namespace BookOpinions.Web.Infrastructure.Extensions
                             WebConstants.AdminRole,
                             WebConstants.BooksModeratorRole,
                             WebConstants.CommentsModeratorRole,
-                            WebConstants.ShopModeratorRole
+                            WebConstants.ShopModeratorRole,
+                            WebConstants.AddingBooksRole
                         };
 
                         foreach (var role in roles)

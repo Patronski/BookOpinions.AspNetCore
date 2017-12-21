@@ -7,11 +7,13 @@ using BookOpinions.Services;
 using BookOpinions.Web.Infrastructure.Filters;
 using BookOpinions.Web.Models.Book;
 using BookOpinions.Web.Models.Home;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookOpinions.Web.Controllers
 {
+    [Authorize]
     public class BooksController : Controller
     {
         private readonly IBookService service;
@@ -40,10 +42,10 @@ namespace BookOpinions.Web.Controllers
                 {
                     Id = b.Id,
                     Title = b.Title,
-                    ImgUrl = b.Image.Url
-                });
-                //.Skip((pager.CurrentPage - 1) * pager.ItemsOnPage)
-                //.Take(pager.ItemsOnPage);
+                    ImgUrl = b.ImgUrl
+                })
+                .Skip((pager.CurrentPage - 1) * pager.ItemsOnPage)
+                .Take(pager.ItemsOnPage);
 
             var viewModel = new AllBooksViewModel
             {
@@ -56,21 +58,31 @@ namespace BookOpinions.Web.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = WebConstants.AdminRole
+            + "," + WebConstants.BooksModeratorRole
+            + "," + WebConstants.CommentsModeratorRole
+            + "," + WebConstants.ShopModeratorRole
+            + "," + WebConstants.AddingBooksRole)]
         public ActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = WebConstants.AdminRole
+            + "," + WebConstants.BooksModeratorRole
+            + "," + WebConstants.CommentsModeratorRole
+            + "," + WebConstants.ShopModeratorRole
+            + "," + WebConstants.AddingBooksRole)]
         //[ValidateModelState]
         public ActionResult Add(AddBookFormModel model)
         {
             if (ModelState.IsValid)
             {
                 this.service.AddNewBook(model.Title, model.ImageUrl, model.AuthorName);
-                TempData["AddedBook"] = $"Successfully added book {model.Title}!";
+                TempData[WebConstants.TempDataAddedBookMessageKey] = $"Successfully added book {model.Title}!";
 
-                return this.RedirectToAction("all", "books");
+                return this.RedirectToAction(nameof(BooksController.All), "books");
             }
 
             return this.RedirectToAction("add", model);
