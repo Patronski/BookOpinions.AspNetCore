@@ -1,0 +1,27 @@
+﻿@model List<BookWellsCollectionServiceModel>
+
+@{
+    int picsInRow = (int)ViewData["picsInRow"];
+    int rowCount = (int)ViewData["rowCount"];
+}
+
+@for (int i = 0; i < rowCount; i++)
+{
+    <div class="row">
+        @foreach (var book in Model.Skip(i * picsInRow).Take(picsInRow))
+        {
+            <div class="col-xs-6 col-md-2 text-center container">
+                <div class="well image-card">
+                    <a href="/books/@book.Id">
+                        <p class="panel-title">@book.Title</p>
+                        <img class="img-thumbnail" alt="picture of @book.Title" src="@book.ImgUrl" />
+                    </a>
+                    <div class="row">
+                        <button class="btn btn-info btn-xs"> Opinions <span class="badge">@book.OpinionsCount</span></button>
+                        <button class="btn btn-success btn-xs"> Rating<span class="badge">@book.RatingsCount</span></button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
