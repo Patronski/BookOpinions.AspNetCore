@@ -34,7 +34,7 @@ namespace BookOpinions.Services.Implementations
                     books = await Db.Books
                         .ProjectTo<BookWellsCollectionServiceModel>()
                         .OrderBy(b => b.AuthorName)
-                        .ToListAsync(); 
+                        .ToListAsync();
                     break;
                 case "title":
                     books = await Db.Books
@@ -45,8 +45,8 @@ namespace BookOpinions.Services.Implementations
                 case "newfirst":
                     books = await Db.Books
                         .ProjectTo<BookWellsCollectionServiceModel>()
-                        .Reverse()
                         .ToListAsync();
+                    books.Reverse();
                     break;
                 case "opinions":
                     books = await Db.Books
@@ -70,13 +70,13 @@ namespace BookOpinions.Services.Implementations
             if (!string.IsNullOrEmpty(search))
             {
                 var searchWords = search
-                                .Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries)
+                                .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                                 .Select(w => w.ToLower());
 
                 books = books.Where(b =>
                 {
                     var titleWords = b.Title
-                                    .Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries)
+                                    .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                                     .Select(w => w.ToLower());
 
                     var result = false;

@@ -44,6 +44,8 @@ namespace BookOpinions.Web
 
             services.AddDomainServices();
 
+            services.AddRouting(routing => routing.LowercaseUrls = true);
+
             services.AddMvc(options =>
             {
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
@@ -63,7 +65,7 @@ namespace BookOpinions.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/home/error");
             }
 
             app.UseStaticFiles();

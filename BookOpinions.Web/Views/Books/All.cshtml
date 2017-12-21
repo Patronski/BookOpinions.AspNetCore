@@ -17,16 +17,16 @@
     <div id="sortTypes" class=" col-lg-9">
         <ul class="nav navbar-nav">
             <li>@Html.ActionLink("Title", "all", "books", routeValues: new { sortOrder = "title" }, htmlAttributes: null)</li>
-            <li>@Html.ActionLink("Author", "All", "Books", routeValues: new { sortOrder = "author" }, htmlAttributes: null)</li>
+            <li>@Html.ActionLink("Author", "all", "Books", routeValues: new { sortOrder = "author" }, htmlAttributes: null)</li>
             <li class="dropdown">
                 <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">Creation Date <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li>@Html.ActionLink("Old first", "All", "Books", routeValues: new { sortOrder = "Oldfirst" }, htmlAttributes: null)</li>
-                    <li>@Html.ActionLink("New first", "All", "Books", routeValues: new { sortOrder = "newFirst" }, htmlAttributes: null)</li>
+                    <li>@Html.ActionLink("Old first", "all", "books", routeValues: new { sortOrder = "oldfirst" }, htmlAttributes: null)</li>
+                    <li>@Html.ActionLink("New first", "all", "books", routeValues: new { sortOrder = "newFirst" }, htmlAttributes: null)</li>
                 </ul>
             </li>
-            <li>@Html.ActionLink("Opinions", "All", "Books", routeValues: new { sortOrder = "opinions" }, htmlAttributes: null)</li>
-            <li>@Html.ActionLink("Rating", "All", "Books", routeValues: new { sortOrder = "rating" }, htmlAttributes: null)</li>
+            <li>@Html.ActionLink("Opinions", "all", "books", routeValues: new { sortOrder = "opinions" }, htmlAttributes: null)</li>
+            <li>@Html.ActionLink("Rating", "all", "books", routeValues: new { sortOrder = "rating" }, htmlAttributes: null)</li>
         </ul>
         <ul class="nav navbar-right">
             <li>
