@@ -7,6 +7,6 @@ namespace BookOpinions.Services
 {
     public interface IHomeService
     {
-        IEnumerable<Book> GetPopularBooks(int popularBooksCount);
+        List<Book> GetPopularBooks(int popularBooksCount);
     }
 }

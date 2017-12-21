@@ -39,7 +39,7 @@ namespace BookOpinions.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("ImageId");
+                    b.Property<int>("ImageId");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -72,15 +72,16 @@ namespace BookOpinions.Data.Migrations
 
                     b.Property<string>("ContentType");
 
-                    b.Property<string>("Name");
+                    b.Property<byte[]>("Data");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<string>("Url");
 
-                    b.Property<byte[]>("data");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Image");
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("BookOpinions.Data.Models.Opinion", b =>
@@ -123,7 +124,7 @@ namespace BookOpinions.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Rating");
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("BookOpinions.Data.Models.User", b =>
@@ -294,8 +295,9 @@ namespace BookOpinions.Data.Migrations
             modelBuilder.Entity("BookOpinions.Data.Models.Book", b =>
                 {
                     b.HasOne("BookOpinions.Data.Models.Image", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId");
+                        .WithMany("Books")
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("BookOpinions.Data.Models.BookAuthor", b =>

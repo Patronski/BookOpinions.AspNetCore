@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace BookOpinions.Data.Migrations
 {
-    public partial class dsad : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,11 +29,13 @@ namespace BookOpinions.Data.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
+                    Birtdate = table.Column<DateTime>(nullable: false),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: false),
                     NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     PasswordHash = table.Column<string>(nullable: true),
@@ -62,19 +64,19 @@ namespace BookOpinions.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Image",
+                name: "Images",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ContentType = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Url = table.Column<string>(nullable: true),
-                    data = table.Column<byte[]>(nullable: true)
+                    Data = table.Column<byte[]>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
+                    Url = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Image", x => x.Id);
+                    table.PrimaryKey("PK_Images", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -189,18 +191,18 @@ namespace BookOpinions.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ImageId = table.Column<int>(nullable: true),
+                    ImageId = table.Column<int>(nullable: false),
                     Title = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Books", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Books_Image_ImageId",
+                        name: "FK_Books_Images_ImageId",
                         column: x => x.ImageId,
-                        principalTable: "Image",
+                        principalTable: "Images",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -256,7 +258,7 @@ namespace BookOpinions.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Rating",
+                name: "Ratings",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -267,15 +269,15 @@ namespace BookOpinions.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rating", x => x.Id);
+                    table.PrimaryKey("PK_Ratings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Rating_Books_BookId",
+                        name: "FK_Ratings_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Rating_AspNetUsers_UserId",
+                        name: "FK_Ratings_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -342,13 +344,13 @@ namespace BookOpinions.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rating_BookId",
-                table: "Rating",
+                name: "IX_Ratings_BookId",
+                table: "Ratings",
                 column: "BookId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rating_UserId",
-                table: "Rating",
+                name: "IX_Ratings_UserId",
+                table: "Ratings",
                 column: "UserId");
         }
 
@@ -376,7 +378,7 @@ namespace BookOpinions.Data.Migrations
                 name: "Opinions");
 
             migrationBuilder.DropTable(
-                name: "Rating");
+                name: "Ratings");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -391,7 +393,7 @@ namespace BookOpinions.Data.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Image");
+                name: "Images");
         }
     }
 }

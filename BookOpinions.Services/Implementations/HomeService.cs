@@ -5,6 +5,7 @@ using System.Text;
 using BookOpinions.Data;
 using BookOpinions.Data.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookOpinions.Services.Implementations
 {
@@ -15,10 +16,12 @@ namespace BookOpinions.Services.Implementations
         {
         }
 
-        public IEnumerable<Book> GetPopularBooks(int popularBooksCount)
+        public List<Book> GetPopularBooks(int popularBooksCount)
         {
             var books = Db
                 .Books
+                .Include(b => b.Image)
+                .OrderBy(b => b.Title)
                 .Take(popularBooksCount)
                 .ToList();
             //    .Select(b => new SimpleBookViewModel

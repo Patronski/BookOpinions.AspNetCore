@@ -2,8 +2,9 @@
 {
     public class WebConstants
     {
-        public const string TrainerRole = "Trainer";
-        public const string BlogAuthorRole = "BlogAuthor";
+        public const string BooksModeratorRole = "BooksModerator";
+        public const string ShopModeratorRole = "ShopModerator";
+        public const string CommentsModeratorRole = "CommentsModerator";
         public const string AdminRole = "Admin";
 
         public const int PasswordMinLength = 4;

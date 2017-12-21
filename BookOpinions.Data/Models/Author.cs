@@ -12,6 +12,6 @@
         [MaxLength(DataConstants.NameMaxLength)]
         public string Name { get; set; }
 
-        public virtual List<BookAuthor> Books { get; set; } = new List<BookAuthor>();
+        public List<BookAuthor> Books { get; set; } = new List<BookAuthor>();
     }
 }

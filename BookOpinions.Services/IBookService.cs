@@ -1,12 +1,14 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 using BookOpinions.Data.Models;
 
 namespace BookOpinions.Services
 {
     public interface IBookService
     {
-        List<Book> GetAllBooksBySortOrder(string sortOrder, string search);
+        Task<List<Book>> GetAllBooksBySortOrder(string sortOrder, string search);
+
+        void AddNewBook(string Title, string ImageUrl, string AuthorName);
     }
 }

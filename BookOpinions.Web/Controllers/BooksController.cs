@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookOpinions.Data.Models;
 using BookOpinions.Services;
+using BookOpinions.Web.Infrastructure.Filters;
 using BookOpinions.Web.Models.Book;
 using BookOpinions.Web.Models.Home;
 using Microsoft.AspNetCore.Identity;
@@ -24,10 +25,10 @@ namespace BookOpinions.Web.Controllers
             this.userManager = userManager;
         }
 
-        [Route("book/all/{sortOrder?}/{page?}/{search?}")]
-        public ActionResult All(string sortOrder, int? page, string search)
+        [Route("Books/All/{sortOrder?}/{page?}/{search?}")]
+        public async Task<ActionResult> All(string sortOrder, int? page, string search)
         {
-            var sortedBooks = this.service.GetAllBooksBySortOrder(sortOrder, search);
+            var sortedBooks = await this.service.GetAllBooksBySortOrder(sortOrder, search);
 
             Pager pager = new Pager(
                 sortedBooks.Count,
@@ -40,9 +41,9 @@ namespace BookOpinions.Web.Controllers
                     Id = b.Id,
                     Title = b.Title,
                     ImgUrl = b.Image.Url
-                })
-                .Skip((pager.CurrentPage - 1) * pager.ItemsOnPage)
-                .Take(pager.ItemsOnPage);
+                });
+                //.Skip((pager.CurrentPage - 1) * pager.ItemsOnPage)
+                //.Take(pager.ItemsOnPage);
 
             var viewModel = new AllBooksViewModel
             {
@@ -53,6 +54,26 @@ namespace BookOpinions.Web.Controllers
             };
 
             return View(viewModel);
+        }
+
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        //[ValidateModelState]
+        public ActionResult Add(AddBookFormModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                this.service.AddNewBook(model.Title, model.ImageUrl, model.AuthorName);
+                TempData["AddedBook"] = $"Successfully added book {model.Title}!";
+
+                return this.RedirectToAction("all", "books");
+            }
+
+            return this.RedirectToAction("add", model);
         }
     }
 }

@@ -12,13 +12,15 @@
         [MaxLength(DataConstants.TitleMaxLength)]
         public string Title { get; set; }
 
-        public virtual Image Image { get; set; }
+        public int ImageId { get; set; }
+
+        public Image Image { get; set; }
 
         [Display(Name = "Authors separated by comma(,)", ShortName = "Authors")]
-        public virtual List<BookAuthor> Authors { get; set; } = new List<BookAuthor>();
+        public List<BookAuthor> Authors { get; set; } = new List<BookAuthor>();
 
-        public virtual List<Opinion> Opinions { get; set; } = new List<Opinion>();
+        public List<Opinion> Opinions { get; set; } = new List<Opinion>();
 
-        public virtual List<Rating> Rating { get; set; } = new List<Rating>();
+        public List<Rating> Rating { get; set; } = new List<Rating>();
     }
 }

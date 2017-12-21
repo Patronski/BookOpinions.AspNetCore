@@ -25,9 +25,9 @@ namespace BookOpinions.Web.Infrastructure.Extensions
                         string[] roles =
                         {
                             WebConstants.AdminRole,
-                            WebConstants.BlogAuthorRole,
-                            WebConstants.TrainerRole
-                            //TODO: configurate proper roles
+                            WebConstants.BooksModeratorRole,
+                            WebConstants.CommentsModeratorRole,
+                            WebConstants.ShopModeratorRole
                         };
 
                         foreach (var role in roles)
@@ -57,7 +57,7 @@ namespace BookOpinions.Web.Infrastructure.Extensions
                                 UserName = WebConstants.AdminRole
                             };
 
-                            await userManager.CreateAsync(adminUser, "admin12");
+                            await userManager.CreateAsync(adminUser, "admin");
 
                             await userManager.AddToRoleAsync(adminUser, WebConstants.AdminRole);
                         }

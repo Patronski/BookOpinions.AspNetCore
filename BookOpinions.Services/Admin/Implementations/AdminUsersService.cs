@@ -27,13 +27,13 @@ namespace BookOpinions.Services.Admin.Implementations
         {
             var models = await this.db
                 .Users
-                .Select(u => new AdminUserListingServiceModel
-                {
-                    Id = u.Id,
-                    Username = u.UserName,
-                    Email = u.Email
-                })
-                //.ProjectTo<AdminUserListingServiceModel>()
+                //.Select(u => new AdminUserListingServiceModel
+                //{
+                //    Id = u.Id,
+                //    Username = u.UserName,
+                //    Email = u.Email
+                //})
+                .ProjectTo<AdminUserListingServiceModel>()
                 .ToListAsync();
 
             foreach (var model in models)

@@ -13,10 +13,11 @@ namespace BookOpinions.Data
         {
         }
 
-        public virtual DbSet<Book> Books { get; set; }
-        public virtual DbSet<Author> Authors { get; set; }
-        public virtual DbSet<Opinion> Opinions { get; set; }
-        //public virtual DbSet<Rating> Ratings{ get; set; }
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Opinion> Opinions { get; set; }
+        public DbSet<Rating> Ratings{ get; set; }
+        public DbSet<Image> Images{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -43,12 +44,6 @@ namespace BookOpinions.Data
                 .HasForeignKey(o => o.BookId);
 
             builder
-                .Entity<Rating>()
-                .HasOne(r => r.Book)
-                .WithMany(b => b.Rating)
-                .HasForeignKey(r => r.BookId);
-
-            builder
                 .Entity<Opinion>()
                 .HasOne(o => o.User)
                 .WithMany(u => u.Opinions)
@@ -56,9 +51,21 @@ namespace BookOpinions.Data
 
             builder
                 .Entity<Rating>()
+                .HasOne(r => r.Book)
+                .WithMany(b => b.Rating)
+                .HasForeignKey(r => r.BookId);
+
+            builder
+                .Entity<Rating>()
                 .HasOne(r => r.User)
                 .WithMany(u => u.Ratings)
                 .HasForeignKey(r => r.UserId);
+
+            builder
+                .Entity<Book>()
+                .HasOne(b => b.Image)
+                .WithMany(i => i.Books)
+                .HasForeignKey(b => b.ImageId);
 
             base.OnModelCreating(builder);
         }

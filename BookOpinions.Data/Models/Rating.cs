@@ -13,11 +13,11 @@ namespace BookOpinions.Data.Models
         public int BookId { get; set; }
 
         [Required]
-        public virtual Book Book { get; set; }
+        public Book Book { get; set; }
 
         public string UserId { get; set; }
 
         [Required]
-        public virtual User User { get; set; }
+        public User User { get; set; }
     }
 }
