@@ -18,51 +18,51 @@ namespace BookOpinions.Services.Implementations
         {
         }
 
-        public async Task<List<BooksAllSortedServiceModel>> GetAllBooksBySortOrder(string sortOrder, string search)
+        public async Task<List<BookWellsCollectionServiceModel>> GetAllBooksBySortOrder(string sortOrder, string search)
         {
             //var books = Db.Books
             //            .ProjectTo<BooksAllSortedServiceModel>();
             //            //.Include(b => b.Authors)
             //            //.ThenInclude(a => a.Author)
             //            //.Include(b => b.Image)
-            List<BooksAllSortedServiceModel> books = new List<BooksAllSortedServiceModel>();
+            List<BookWellsCollectionServiceModel> books = new List<BookWellsCollectionServiceModel>();
 
             var sortToLower = sortOrder?.ToLower();
             switch (sortToLower)
             {
                 case "author":
                     books = await Db.Books
-                        .ProjectTo<BooksAllSortedServiceModel>()
+                        .ProjectTo<BookWellsCollectionServiceModel>()
                         .OrderBy(b => b.AuthorName)
                         .ToListAsync(); 
                     break;
                 case "title":
                     books = await Db.Books
-                        .ProjectTo<BooksAllSortedServiceModel>()
+                        .ProjectTo<BookWellsCollectionServiceModel>()
                         .OrderBy(sb => sb.Title)
                         .ToListAsync();
                     break;
                 case "newfirst":
                     books = await Db.Books
-                        .ProjectTo<BooksAllSortedServiceModel>()
+                        .ProjectTo<BookWellsCollectionServiceModel>()
                         .Reverse()
                         .ToListAsync();
                     break;
                 case "opinions":
                     books = await Db.Books
-                        .ProjectTo<BooksAllSortedServiceModel>()
+                        .ProjectTo<BookWellsCollectionServiceModel>()
                         .OrderByDescending(b => b.OpinionsCount)
                         .ToListAsync();
                     break;
                 case "rating":
                     books = await Db.Books
-                        .ProjectTo<BooksAllSortedServiceModel>()
+                        .ProjectTo<BookWellsCollectionServiceModel>()
                         .OrderByDescending(b => b.RatingsCount)
                         .ToListAsync();
                     break;
                 default:
                     books = await Db.Books
-                        .ProjectTo<BooksAllSortedServiceModel>()
+                        .ProjectTo<BookWellsCollectionServiceModel>()
                         .ToListAsync();
                     break;
             }

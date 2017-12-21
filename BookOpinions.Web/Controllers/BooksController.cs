@@ -37,19 +37,14 @@ namespace BookOpinions.Web.Controllers
                 page,
                 WebConstants.BooksAllBooksOnPage);
 
-            var booksVm = sortedBooks
-                .Select(b => new SimpleBookViewModel
-                {
-                    Id = b.Id,
-                    Title = b.Title,
-                    ImgUrl = b.ImgUrl
-                })
+            var booksInPage = sortedBooks
                 .Skip((pager.CurrentPage - 1) * pager.ItemsOnPage)
-                .Take(pager.ItemsOnPage);
+                .Take(pager.ItemsOnPage)
+                .ToList();
 
             var viewModel = new AllBooksViewModel
             {
-                Books = booksVm,
+                Books = booksInPage,
                 Pager = pager,
                 SortOrder = sortOrder,
                 Search = search

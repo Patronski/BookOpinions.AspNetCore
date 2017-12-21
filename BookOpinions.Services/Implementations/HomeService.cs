@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using AutoMapper.QueryableExtensions;
 using BookOpinions.Data;
 using BookOpinions.Data.Models;
+using BookOpinions.Services.Models.Book;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,20 +19,14 @@ namespace BookOpinions.Services.Implementations
         {
         }
 
-        public List<Book> GetPopularBooks(int popularBooksCount)
+        public async Task<List<BookWellsCollectionServiceModel>> GetPopularBooks(int popularBooksCount)
         {
-            var books = Db
+            var books = await Db
                 .Books
-                .Include(b => b.Image)
+                .ProjectTo<BookWellsCollectionServiceModel>()
                 .OrderBy(b => b.Title)
                 .Take(popularBooksCount)
-                .ToList();
-            //    .Select(b => new SimpleBookViewModel
-            //{
-            //    Id = b.Id,
-            //    ImgUrl = b.Image.Url,
-            //    Title = b.Title
-            //});
+                .ToListAsync();
 
             return books;
         }

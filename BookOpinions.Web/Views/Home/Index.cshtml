@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HomePopularBookViewModel>
+﻿@model List<BookWellsCollectionServiceModel>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -16,22 +16,28 @@
             <p class="col-md-12 lead">These are our most rated books recently. Please register to share you knowledge about books you have read. You can also use our shop.</p>
         }
 
-        @{int picsInRow = 6;
-            int rows = 2;}
-        @for (int i = 0; i < rows; i++)
+        @{
+            int picsInRow = 6;
+            int rowCount = WebConstants.HomeIndexBooksRowCount;
+        }
+
+        @for (int i = 0; i < rowCount; i++)
         {
             <div class="row">
                 @foreach (var book in Model.Skip(i * picsInRow).Take(picsInRow))
                 {
-                    <div class="col-xs-6 col-md-2">
-                        <h4 class="panel-title">@book.Title</h4>
-                        <a href="/book/@book.Id">
+                <div class="col-xs-6 col-md-2 text-center container">
+                    <div class="well image-card">
+                        <a href="/books/@book.Id">
+                            <p class="panel-title">@book.Title</p>
                             <img class="img-thumbnail" alt="picture of @book.Title" src="@book.ImgUrl" />
                         </a>
-                        <p>
-                            @Html.ActionLink("Learn more", "About", "book", routeValues: new { id = book.Id }, htmlAttributes: new { @class = "btn btn-default" })
-                        </p>
+                        <div class="row">
+                            <button class="btn btn-info btn-xs"> Opinions <span class="badge">@book.OpinionsCount</span></button>
+                            <button class="btn btn-success btn-xs"> Rating<span class="badge">@book.RatingsCount</span></button>
+                        </div>
                     </div>
+                </div>
                 }
             </div>
         }

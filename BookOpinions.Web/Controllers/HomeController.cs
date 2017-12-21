@@ -25,20 +25,11 @@ namespace BookOpinions.Web.Controllers
             this.userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var popularBooks = this.service.GetPopularBooks(WebConstants.PopularBooksCount);
-            //TODO: uses First/FirstOrDefault operation without OrderBy and filter which may lead to unpredictable results.
-            //TODO: uses a row limiting operation (Skip/Take) without OrderBy which may lead to unpredictable results.
-            var vms = popularBooks.Select(b => new HomePopularBookViewModel
-            {
-                Id = b.Id,
-                ImgUrl = b.Image.Url,
-                Title = b.Title
-            })
-            .ToList();
+            var popularBooks = await this.service.GetPopularBooks(WebConstants.PopularBooksCount);
             
-            return View(vms);
+            return View(popularBooks);
         }
 
         public IActionResult Error()

@@ -43,11 +43,13 @@
 #homePopularBooks {
     margin-top: 20px;
     padding: 20px;
-    border: groove;
+    
+    background-color: lightgoldenrodyellow;
 }
 
 .image-card {
-    /*max-height:260px*/
+    background-color: lightgoldenrodyellow;
+    margin-bottom: 5px;
 }
 
 .my-image {

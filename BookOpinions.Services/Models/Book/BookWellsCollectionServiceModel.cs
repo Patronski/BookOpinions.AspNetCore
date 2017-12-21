@@ -8,7 +8,7 @@ using System.Linq;
 namespace BookOpinions.Services.Models.Book
 {
     // Good example - why usings must be in the namespace
-    public class BooksAllSortedServiceModel : IMapFrom<Data.Models.Book>, IHaveCustomMapping
+    public class BookWellsCollectionServiceModel : IMapFrom<Data.Models.Book>, IHaveCustomMapping
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -20,7 +20,7 @@ namespace BookOpinions.Services.Models.Book
         public void ConfigureMapping(Profile mapper)
         {
             mapper
-                .CreateMap<Data.Models.Book, BooksAllSortedServiceModel>()
+                .CreateMap<Data.Models.Book, BookWellsCollectionServiceModel>()
                 .ForMember(m => m.OpinionsCount, cfg => cfg.MapFrom(b=>b.Opinions.Count))
                 .ForMember(m => m.RatingsCount, cfg => cfg.MapFrom(b=>b.Rating.Count))
                 .ForMember(m => m.ImgUrl, cfg => cfg.MapFrom(b => b.Image.Url))

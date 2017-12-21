@@ -57,24 +57,29 @@
 }
 
 @{
-    int picsInRow = 6;
-    int picsInPage = picsInRow * 3;
+    int picsInRow = WebConstants.NumberOfBooksInRow;
+    int rowCount = Model.Books.Count / picsInRow + Model.Books.Count % picsInRow;
 }
 
-@for (int j = 0; j < (Model.Books.Count() / picsInRow + Model.Books.Count() % picsInRow); j++)
+@for (int i = 0; i < rowCount; i++)
 {
     <div class="row">
-        @foreach (var book in Model.Books.Skip(j * picsInRow).Take(picsInRow))
+        @foreach (var book in Model.Books.Skip(i * picsInRow).Take(picsInRow))
         {
-            <div class="col-xs-6 col-md-2 center-block image-card">
+        <div class="col-xs-6 col-md-2 text-center container">
+            <div class="well image-card">
                 <a href="/books/@book.Id">
-                    <p class="panel-title">@book.Title</p>
-                    <img class="img-responsive my-image" alt="picture of @book.Title" src="@book.ImgUrl" />
+                    <p class="panel-title"> @book.Title</p>
+                    <img class="img-responsive center-block my-image" alt="picture of @book.Title" src="@book.ImgUrl" />
                 </a>
+                <div class="row">
+                    <button class="btn btn-info btn-xs"> Opinions <span class="badge">@book.OpinionsCount</span></button>
+                    <button class="btn btn-success btn-xs"> Rating<span class="badge">@book.RatingsCount</span></button>
+                </div>
             </div>
+        </div>
         }
     </div>
-    <br />
 }
 
 @if (Model.Pager.EndPage > 1)
@@ -106,9 +111,3 @@
         }
     </ul>
 }
-
-<button class="btn btn-primary btn-xs" routerLink="/books/add">Add book</button>
-<button class="btn btn-info btn-xs" (click)="hideme[i] = !hideme[i]">Details</button>
-<button class="btn btn-success btn-xs" (click)='addToMyBooks(book)'>Add to My Books</button>
-<button class="btn btn-warning btn-xs" (click)='editBook(book._id)'>Edit</button>
-<button class="btn btn-danger btn-xs" (click)='deleteBook(book._id)'>Delete</button>

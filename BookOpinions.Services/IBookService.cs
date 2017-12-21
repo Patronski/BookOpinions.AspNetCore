@@ -8,7 +8,7 @@ namespace BookOpinions.Services
 {
     public interface IBookService
     {
-        Task<List<BooksAllSortedServiceModel>> GetAllBooksBySortOrder(string sortOrder, string search);
+        Task<List<BookWellsCollectionServiceModel>> GetAllBooksBySortOrder(string sortOrder, string search);
 
         void AddNewBook(string Title, string ImageUrl, string AuthorName);
     }
