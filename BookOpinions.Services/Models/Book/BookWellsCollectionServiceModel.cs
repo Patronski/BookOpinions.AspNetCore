@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using BookOpinions.Common.Mapping;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace BookOpinions.Services.Models.Book

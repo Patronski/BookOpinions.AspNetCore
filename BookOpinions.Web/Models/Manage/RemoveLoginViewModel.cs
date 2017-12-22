@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BookOpinions.Web.Models.Manage
+﻿namespace BookOpinions.Web.Models.Manage
 {
     public class RemoveLoginViewModel
     {

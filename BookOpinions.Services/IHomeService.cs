@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using BookOpinions.Data.Models;
 using BookOpinions.Services.Models.Book;
 
 namespace BookOpinions.Services

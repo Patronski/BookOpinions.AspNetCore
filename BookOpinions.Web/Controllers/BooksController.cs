@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using BookOpinions.Data.Models;
 using BookOpinions.Services;
-using BookOpinions.Web.Infrastructure.Filters;
 using BookOpinions.Web.Models.Book;
-using BookOpinions.Web.Models.Home;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using BookOpinions.Web.Infrastructure.Extensions;
 using BookOpinions.Services.Models.Book;
 

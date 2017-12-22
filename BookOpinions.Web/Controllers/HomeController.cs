@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using BookOpinions.Data.Models;
 using BookOpinions.Services;
 using Microsoft.AspNetCore.Mvc;
 using BookOpinions.Web.Models;
-using BookOpinions.Web.Models.Home;
 using Microsoft.AspNetCore.Identity;
 
 namespace BookOpinions.Web.Controllers

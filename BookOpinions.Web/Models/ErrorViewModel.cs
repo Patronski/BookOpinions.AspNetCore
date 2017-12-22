@@ -1,5 +1,3 @@
-using System;
-
 namespace BookOpinions.Web.Models
 {
     public class ErrorViewModel

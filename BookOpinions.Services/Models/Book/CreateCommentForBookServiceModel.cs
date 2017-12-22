@@ -1,10 +1,5 @@
-﻿using AutoMapper;
-using BookOpinions.Common.Mapping;
-using System;
-using System.Collections.Generic;
+﻿using BookOpinions.Common.Mapping;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BookOpinions.Services.Models.Book
 {

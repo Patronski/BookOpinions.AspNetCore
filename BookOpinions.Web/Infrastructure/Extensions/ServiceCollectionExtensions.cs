@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using BookOpinions.Services;
 using Microsoft.Extensions.DependencyInjection;

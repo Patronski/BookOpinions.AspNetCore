@@ -40,6 +40,11 @@ namespace BookOpinions.Web
                 .AddEntityFrameworkStores<BookOpinionsDbContext>()
                 .AddDefaultTokenProviders();
 
+            //services.Configure<MvcOptions>(options =>
+            //{
+            //    options.Filters.Add(new RequireHttpsAttribute());
+            //});
+
             services.AddAutoMapper();
 
             services.AddDomainServices();

@@ -1,6 +1,4 @@
-﻿using BookOpinions.Data.Models;
-
-namespace BookOpinions.Web.Models.Home
+﻿namespace BookOpinions.Web.Models.Home
 {
     public class SimpleBookViewModel
     {
