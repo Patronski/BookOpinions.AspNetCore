@@ -15,21 +15,32 @@ namespace BookOpinions.Services.Models.Book
         public string ImgUrl { get; set; }
         public string AuthorName { get; set; }
         public int OpinionsCount { get; set; }
-        public int RatingsCount { get; set; }
+        public double FinalRating { get; set; }
 
         public void ConfigureMapping(Profile mapper)
         {
             mapper
                 .CreateMap<Data.Models.Book, BookWellsCollectionServiceModel>()
-                .ForMember(m => m.OpinionsCount, cfg => cfg.MapFrom(b=>b.Opinions.Count))
-                .ForMember(m => m.RatingsCount, cfg => cfg.MapFrom(b=>b.Rating.Count))
+                .ForMember(m => m.OpinionsCount, cfg => cfg.MapFrom(b => b.Opinions.Count))
                 .ForMember(m => m.ImgUrl, cfg => cfg.MapFrom(b => b.Image.Url))
+
                 .ForMember(
                     m => m.AuthorName,
                     cfg => cfg.MapFrom(
                         b => b.Authors.FirstOrDefault(
                             a => a.BookId == b.Id)
-                            .Author.Name));
+                            .Author.Name))
+
+                .ForMember(m => m.FinalRating, cfg => cfg.MapFrom(b =>
+                    (b.Rating.Count == 0)
+                    ?
+                    0d
+                    :
+                    Math.Round(
+                            b.Rating.Sum(r => r.Value)
+                            /
+                            (double)b.Rating.Count,
+                        ServiceConstants.RoundNumbersAfterDecimalPoint)));
         }
     }
 }

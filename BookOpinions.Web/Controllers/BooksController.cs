@@ -10,6 +10,9 @@ using BookOpinions.Web.Models.Home;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using BookOpinions.Web.Infrastructure.Extensions;
+using BookOpinions.Services.Models.Book;
 
 namespace BookOpinions.Web.Controllers
 {
@@ -27,8 +30,8 @@ namespace BookOpinions.Web.Controllers
             this.userManager = userManager;
         }
 
-        [Route("Books/All/{sortOrder?}/{page?}/{search?}")]
-        public async Task<ActionResult> All(string sortOrder, int? page, string search)
+        [Route("Books/All/{sortOrder?}/{page:int?}/{search?}")]
+        public async Task<IActionResult> All(string sortOrder, int? page, string search)
         {
             var sortedBooks = await this.service.GetAllBooksBySortOrder(sortOrder, search);
 
@@ -81,6 +84,65 @@ namespace BookOpinions.Web.Controllers
             }
 
             return this.RedirectToAction("add", model);
+        }
+
+        [Route("books/{id:int}")]
+        public IActionResult Description(int id)
+        {
+            var userId = this.User.GetUserId();
+
+            var vm = this.service.GetBookDescriptionById(id, userId);
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult Opinion(CreateOpinionForBookServiceModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (this.service.AddOpinionForBook(model))
+                {
+                    return RedirectToAction(nameof(this.Description), routeValues: new { id = model.BookId });
+                }
+            }
+            TempData[WebConstants.TempDataAddedOpinionMessageKey] = "The opinion is not created!";
+
+            return RedirectToAction(nameof(this.Description), routeValues: new { id = model.BookId });
+        }
+
+        [HttpPost]
+        //[Authorize(Roles = "User, Admin")]
+        public IActionResult DeleteOpinion(int opinionId, int bookId)
+        {
+            this.service.DeleteOpinion(opinionId);
+            return this.RedirectToAction(nameof(this.Description), new { id = bookId });
+        }
+
+        [HttpPost]
+        [Authorize(Roles = WebConstants.AdminRole)]
+        public IActionResult Delete(string delete, int id)
+        {
+            if (delete == WebConstants.ConfirmBookDeletion)
+            {
+                this.service.DeleteBook(id);
+                TempData[WebConstants.TempDataDeleteBookCaptcha] = $"Successfully deleted book with id = {id}";
+                return this.RedirectToAction(nameof(this.All));
+            }
+            TempData[WebConstants.TempDataDeleteBookCaptcha] = $"Write lowercase \"delete\" without quotes to delete this book!";
+            return this.RedirectToAction(nameof(this.Description), routeValues: new { id });
+        }
+
+        [HttpPost]
+        public IActionResult AddRate(int value, int bookId)
+        {
+            if (value >= 1 && value <= 5)
+            {
+                var userId = this.User.GetUserId();
+                service.AddRate(value, bookId, userId);
+            }
+            
+            return this.RedirectToAction(nameof(this.Description), routeValues: new { id = bookId });
         }
     }
 }

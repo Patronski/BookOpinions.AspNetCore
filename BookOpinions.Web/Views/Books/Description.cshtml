@@ -1,0 +1,119 @@
+﻿@model BookDescriptionServiceModel
+@{
+    ViewData["Title"] = "Description";
+}
+
+<section class="col-lg-3">
+    <h2>@Model.Title</h2>
+
+    <img class="img-responsive img-rounded" alt="picture of the book" src="@Model.ImgUrl" />
+    <div class="">
+        <p><strong>Authors:</strong> @Model.AuthorNames</p>
+
+        <p><strong>Final Rating:</strong> @Model.FinalRating <strong>Total votes:</strong> @Model.TotalVoted</p>
+
+        <form asp-controller="Books" method="post" class="form-horizontal">
+            <div class="row">
+                <input type="hidden" name="bookId" value="@Model.Id" />
+                <div class="col-md-5">
+                    <label for="role">Please rate this book:</label>
+                </div>
+                <div class="col-md-5">
+                    <select name="value" asp-items="Model.RatingPosibilities" class="form-control">
+                        <option>--</option>
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <input class="btn btn-sm btn-primary" type="submit" value="Rate" asp-action="AddRate" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <br />
+    <div>
+        @Html.ActionLink("Back to All", "all")
+    </div>
+</section>
+
+@if (User.IsInRole("Admin"))
+{
+    <br />
+    <section class="col-md-offset-2 col-md-7">
+        @if (TempData[WebConstants.TempDataDeleteBookCaptcha] != null)
+        {
+            <div class="alert-danger">
+                @TempData[WebConstants.TempDataDeleteBookCaptcha]
+            </div>
+        }
+
+        <div id="adminBookDetails">
+            <h4 class="text-center">Danger zone - Admin</h4>
+            <div class="form-group">
+                @using (Html.BeginForm("delete", "books"))
+                {
+                    @Html.AntiForgeryToken();
+                    <input type="text" placeholder="Input &quot;delete&quot;" name="delete" class="center-block form-control" />
+                    <input type="hidden" value="@Model.Id" name="id" class=" form-control" />
+                    <input type="submit" value="Delete" class="btn btn-danger center-block" />
+                }
+            </div>
+            <br />
+            <div class="">
+                @using (Html.BeginForm("Edit", "books", FormMethod.Get))
+                {
+                    <input type="hidden" value="@Model.Id" name="id" class=" form-control" />
+                    <input type="submit" value="Edit" class="btn btn-info center-block" />
+                }
+            </div>
+        </div>
+    </section>
+    <div>
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+    </div>
+}
+
+<section class="col-lg-offset-4">
+    <br />
+    @if (TempData[WebConstants.TempDataAddedOpinionMessageKey] != null)
+    {
+        <div class="alert-danger">
+            @TempData[WebConstants.TempDataAddedOpinionMessageKey]
+        </div>
+    }
+
+    @if (User.IsInRole(WebConstants.AdminRole))
+    {
+        <div class="text-center">
+            <form asp-action="opinion" method="post">
+                <textarea rows="5" cols="50" name="comment"></textarea>
+                <input type="hidden" value="@Model.Id" name="bookId" class=" form-control" />
+                <input type="hidden" value="@Model.UserId" name="userId" class=" form-control" />
+                <input type="submit" value="Voice your Opinion!" class="btn btn-info left" />
+            </form>
+        </div>
+    }
+
+    <h4 class="text-primary">Opinions(@Model.Opinions.Count)</h4>
+    @foreach (var opinion in Model.Opinions)
+    {
+        <div class="">
+            <label class="text-info">On: @opinion.CreatedOn.ToString("yyyy/MM/dd HH:mm")</label>
+            @if (Model.UserId == opinion.User.Id || User.IsInRole(WebConstants.AdminRole))
+            {
+                <span style="width:60px; float:right">
+                    @using (Html.BeginForm("deleteOpinion", "books", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        @Html.AntiForgeryToken();
+                        <input type="hidden" value="@opinion.Id" name="opinionId" />
+                        <input type="hidden" value="@Model.Id" name="bookId" />
+                        <input type="submit" value="Delete" class="btn btn-sm btn-danger" />
+                    }
+                </span>
+            }
+            <div class="panel well">
+                <h5 class="">@opinion.Comment</h5>
+            </div>
+        </div>
+    }
+</section>
+

@@ -2,6 +2,8 @@
 using System;
 using System.Linq;
 using BookOpinions.Common.Mapping;
+using BookOpinions.Data.Models;
+using BookOpinions.Services.Models.Book;
 
 namespace BookOpinions.Web.Infrastructure.Mapping
 {
@@ -47,6 +49,8 @@ namespace BookOpinions.Web.Infrastructure.Mapping
                 .Cast<IHaveCustomMapping>()
                 .ToList()
                 .ForEach(mapping => mapping.ConfigureMapping(this));
+
+            this.CreateMap<CreateOpinionForBookServiceModel, Opinion>();
         }
     }
 }

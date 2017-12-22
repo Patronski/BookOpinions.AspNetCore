@@ -16,7 +16,12 @@
         public const string TempDataSuccessMessageKey = "SuccessMessage";
         public const string TempDataErrorMessageKey = "ErrorMessage";
         public const string TempDataAddedBookMessageKey = "TempDataAddedBookMessage";
-        public const string TempDataDeletedBookMessageKey = "TempDataDeletedBookMessage";
+        public const string TempDataDeletedBookMessageKey = "DeletedBook";
+        public const string TempDataAddedOpinionMessageKey = "AddedComment";
+        public const string TempDataDeletedCommentMessageKey = "DeletedComment";
+        public const string TempDataDeleteBookCaptcha = "DeleteBookCaptcha";
+
+        public const string ConfirmBookDeletion = "delete";
 
         public const string AdminArea = "Admin";
 
@@ -26,5 +31,6 @@
         public const int HomeIndexBooksRowCount = 2;
         public const int HomeAllBooksRowCount = 3;
         public const int NumberOfBooksInRow = 4;
+
     }
 }

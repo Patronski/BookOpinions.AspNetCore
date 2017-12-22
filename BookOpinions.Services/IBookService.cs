@@ -11,5 +11,15 @@ namespace BookOpinions.Services
         Task<List<BookWellsCollectionServiceModel>> GetAllBooksBySortOrder(string sortOrder, string search);
 
         void AddNewBook(string Title, string ImageUrl, string AuthorName);
+
+        BookDescriptionServiceModel GetBookDescriptionById(int id, string userId);
+
+        bool AddOpinionForBook(CreateOpinionForBookServiceModel model);
+
+        void DeleteOpinion(int id);
+
+        void DeleteBook(int id);
+
+        void AddRate(int value, int bookId, string userId);
     }
 }

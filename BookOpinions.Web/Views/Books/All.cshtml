@@ -46,13 +46,10 @@
     </div>
 </div>
 
-@if (TempData[WebConstants.TempDataAddedBookMessageKey] != null || TempData[WebConstants.TempDataDeletedBookMessageKey] != null)
+@if (TempData[WebConstants.TempDataAddedBookMessageKey] != null)
 {
     <div class="alert-success">
         @TempData[WebConstants.TempDataAddedBookMessageKey]
-    </div>
-    <div class="alert-success">
-        @TempData[WebConstants.TempDataDeletedBookMessageKey]
     </div>
 }
 
