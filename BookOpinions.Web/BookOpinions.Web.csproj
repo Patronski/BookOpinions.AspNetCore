@@ -27,10 +27,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\Books\" />
-    <Folder Include="Areas\Shop\Controllers\" />
-    <Folder Include="Areas\Shop\Data\" />
     <Folder Include="Areas\Shop\Models\" />
-    <Folder Include="Areas\Shop\Views\" />
   </ItemGroup>
 
 </Project>

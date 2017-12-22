@@ -25,6 +25,7 @@
         public const string ConfirmBookDeletion = "delete";
 
         public const string AdminArea = "Admin";
+        public const string ShopArea = "Shop";
 
         public const int PopularBooksCount = 12;
 
