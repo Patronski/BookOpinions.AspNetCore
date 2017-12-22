@@ -32,6 +32,7 @@ namespace BookOpinions.Services.Implementations
                 });
             }
 
+            toThisBook.Authors.AddRange(ba);
             return ba;
         }
 
@@ -55,10 +56,9 @@ namespace BookOpinions.Services.Implementations
         public async Task<List<BookWellsCollectionServiceModel>> GetAllBooksBySortOrder(string sortOrder, string search)
         {
             //var books = Db.Books
-            //            .ProjectTo<BooksAllSortedServiceModel>();
-            //            //.Include(b => b.Authors)
-            //            //.ThenInclude(a => a.Author)
-            //            //.Include(b => b.Image)
+            //    .Include(b => b.Authors)
+            //    .ThenInclude(a => a.Author)
+            //    .Include(b => b.Image)
             List<BookWellsCollectionServiceModel> books = new List<BookWellsCollectionServiceModel>();
 
             var sortToLower = sortOrder?.ToLower();
@@ -206,10 +206,10 @@ namespace BookOpinions.Services.Implementations
             return bookDescription;
         }
 
-        public bool AddOpinionForBook(CreateOpinionForBookServiceModel model)
+        public bool AddOpinionForBook(CreateOpinionForBookServiceModel model, string userId )
         {
             var book = this.Db.Books.Find(model.BookId);
-            var user = this.Db.Users.Find(model.UserId);
+            var user = this.Db.Users.Find(userId);
 
             if (user == null || book == null)
             {
@@ -256,32 +256,66 @@ namespace BookOpinions.Services.Implementations
 
         public EditBookViewModel FindBookForEdit(int id)
         {
-            Book book = this.Db.Books.Find(id);
-            EditBookViewModel vm = Mapper.Map<EditBookViewModel>(book);
+            Book book = this.Db.Books
+                .Where(b => b.Id == id)
+                .Include(b => b.Authors)
+                    .ThenInclude(ba => ba.Author)
+                .Include(b => b.Image)
+                .FirstOrDefault();
 
+            EditBookViewModel vm = Mapper.Map<EditBookViewModel>(book);
+            
             return vm;
         }
 
         public void EditBook(EditBookViewModel model)
         {
-            var book = Db.Books.Where(b=>b.Id == model.Id)
+            var book = Db.Books
                         .Include(b=> b.Image)
+                        .Include(b => b.Authors)
+                            .ThenInclude(ba=> ba.Author)
+                        .Where(b => b.Id == model.Id)
                         .FirstOrDefault();
 
             if (book != null)
             {
                 if (model.AuthorNames != null)
                 {
-                    var authors = model
+                    var modelAuthors = model
                         .AuthorNames
-                        .Split(',')
-                        .Select(name => new Author
-                        {
-                            Name = name.Trim(),
-                        })
+                        .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                        .Select(name => name.Trim())
                         .ToList();
 
-                    AddAuthorsToBook(authors, book);
+                    if (modelAuthors.Count > 0)
+                    {
+                        var authorsToRemove = new List<BookAuthor>();
+
+                        foreach (var ba in book.Authors)
+                        {
+                            if (!modelAuthors.Contains(ba.Author.Name))
+                            {
+                                authorsToRemove.Add(ba);
+                            }
+                            else
+                            {
+                                modelAuthors.Remove(ba.Author.Name);
+                            }
+                        }
+
+                        foreach (var author in authorsToRemove)
+                        {
+                            book.Authors.Remove(author);
+                        }
+
+                        var newAuthors = modelAuthors
+                            .Select(name => new Author
+                            {
+                                Name = name
+                            });
+                        
+                        AddAuthorsToBook(newAuthors, book);
+                    }
                 }
 
                 book.Image.Url = model.ImageUrl;

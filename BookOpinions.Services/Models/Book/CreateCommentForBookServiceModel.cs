@@ -1,4 +1,5 @@
-﻿using BookOpinions.Common.Mapping;
+﻿using AutoMapper;
+using BookOpinions.Common.Mapping;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,8 +15,5 @@ namespace BookOpinions.Services.Models.Book
 
         [Required]
         public int BookId { get; set; }
-
-        [Required]
-        public string UserId { get; set; }
     }
 }

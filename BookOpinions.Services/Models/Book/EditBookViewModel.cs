@@ -28,9 +28,8 @@ namespace BookOpinions.Services.Models.Book
                 .ForMember(
                     m => m.AuthorNames,
                     cfg => cfg.MapFrom(
-                        b => b.Authors.FirstOrDefault(
-                            a => a.BookId == b.Id)
-                            .Author.Name));
+                        b => string.Join(", ", b.Authors.Select(
+                            ba => ba.Author.Name))));
         }
     }
 }

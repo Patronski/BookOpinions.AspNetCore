@@ -6,6 +6,13 @@
 <section class="col-lg-3">
     <h2>@Model.Title</h2>
 
+    @if (TempData[WebConstants.TempDataEditedBookSuccsessfully] != null)
+    {
+        <div class="alert-success">
+            @TempData[WebConstants.TempDataEditedBookSuccsessfully]
+        </div>
+    }
+
     <img class="img-responsive img-rounded" alt="picture of the book" src="@Model.ImgUrl" />
     <div class="">
         <p><strong>Authors:</strong> @Model.AuthorNames</p>
@@ -67,12 +74,9 @@
             </div>
         </div>
     </section>
-    <div>
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    </div>
 }
 
-<section class="col-lg-offset-4">
+<section class="col-lg-9">
     <br />
     @if (TempData[WebConstants.TempDataAddedOpinionMessageKey] != null)
     {
@@ -81,19 +85,21 @@
         </div>
     }
 
-    @if (User.IsInRole(WebConstants.AdminRole))
+    @if (User.Identity.IsAuthenticated)
     {
         <div class="text-center">
-            <form asp-action="opinion" method="post">
-                <textarea rows="5" cols="50" name="comment"></textarea>
-                <input type="hidden" value="@Model.Id" name="bookId" class=" form-control" />
-                <input type="hidden" value="@Model.UserId" name="userId" class=" form-control" />
+            <form asp-action="opinion" class="form-group" method="post">
+                <div class="row">
+                    <textarea placeholder="Have you read this book?" rows="5" cols="60" name="comment"></textarea>
+                    <input type="hidden" value="@Model.Id" name="bookId" class=" form-control" />
+                    <input type="hidden" value="@Model.UserId" name="userId" class=" form-control" />
+                </div>
                 <input type="submit" value="Voice your Opinion!" class="btn btn-info left" />
             </form>
         </div>
     }
 
-    <h4 class="text-primary">Opinions(@Model.Opinions.Count)</h4>
+    <h4 class="text-primary text-center">Opinions(@Model.Opinions.Count)</h4>
     @foreach (var opinion in Model.Opinions)
     {
         <div class="">

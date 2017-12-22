@@ -14,7 +14,7 @@ namespace BookOpinions.Services
 
         BookDescriptionServiceModel GetBookDescriptionById(int id, string userId);
 
-        bool AddOpinionForBook(CreateOpinionForBookServiceModel model);
+        bool AddOpinionForBook(CreateOpinionForBookServiceModel model, string currentUserId);
 
         void DeleteOpinion(int id);
 

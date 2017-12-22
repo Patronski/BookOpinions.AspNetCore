@@ -97,16 +97,17 @@ namespace BookOpinions.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Opinion(CreateOpinionForBookServiceModel model)
+        public async Task<IActionResult> Opinion(CreateOpinionForBookServiceModel model)
         {
             if (ModelState.IsValid)
             {
-                if (this.service.AddOpinionForBook(model))
+                var userId = this.User.GetUserId();
+                if (this.service.AddOpinionForBook(model, userId))
                 {
                     return RedirectToAction(nameof(this.Description), routeValues: new { id = model.BookId });
                 }
             }
-            TempData[WebConstants.TempDataAddedOpinionMessageKey] = "The opinion is not created!";
+            TempData[WebConstants.TempDataAddedOpinionMessageKey] = "Sorry the opinion is not created!";
 
             return RedirectToAction(nameof(this.Description), routeValues: new { id = model.BookId });
         }
@@ -160,9 +161,9 @@ namespace BookOpinions.Web.Controllers
             if (ModelState.IsValid)
             {
                 this.service.EditBook(bm);
-                TempData[WebConstants.TempDataAddedBookMessageKey] = $"Successfully edited book {bm.Title}!";
+                TempData[WebConstants.TempDataEditedBookSuccsessfully] = $"Successfully edited book {bm.Title}!";
 
-                return this.RedirectToAction(nameof(this.Description), bm.Id);
+                return this.RedirectToAction(nameof(this.Description), routeValues: new { id = bm.Id });
             }
             return this.RedirectToAction(nameof(this.Edit), bm);
         }
