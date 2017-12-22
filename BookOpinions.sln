@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookOpinions.Data", "BookOp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookOpinions.Web", "BookOpinions.Web\BookOpinions.Web.csproj", "{4269A175-EAF9-4190-9717-974038895DB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookOpinions.Common", "BookOpinions.Common\BookOpinions.Common.csproj", "{9C2CE4E3-06DB-400F-AAE1-3D53C7172865}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookOpinions.Common", "BookOpinions.Common\BookOpinions.Common.csproj", "{9C2CE4E3-06DB-400F-AAE1-3D53C7172865}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{47AC6D75-8A45-4993-94B5-06AFA60C5084}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookOpinions.UnitTests", "BookOpinions.UnitTests\BookOpinions.UnitTests.csproj", "{0C3EEFAB-DD53-42C9-9755-9DCF2AE391C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookOpinions.IntegrationTests", "BookOpinions.IntegrationTests\BookOpinions.IntegrationTests.csproj", "{6A0A6781-65B6-4074-8F31-99D862B53E25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +39,21 @@ Global
 		{9C2CE4E3-06DB-400F-AAE1-3D53C7172865}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C2CE4E3-06DB-400F-AAE1-3D53C7172865}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C2CE4E3-06DB-400F-AAE1-3D53C7172865}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C3EEFAB-DD53-42C9-9755-9DCF2AE391C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C3EEFAB-DD53-42C9-9755-9DCF2AE391C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C3EEFAB-DD53-42C9-9755-9DCF2AE391C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C3EEFAB-DD53-42C9-9755-9DCF2AE391C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A0A6781-65B6-4074-8F31-99D862B53E25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A0A6781-65B6-4074-8F31-99D862B53E25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A0A6781-65B6-4074-8F31-99D862B53E25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A0A6781-65B6-4074-8F31-99D862B53E25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0C3EEFAB-DD53-42C9-9755-9DCF2AE391C9} = {47AC6D75-8A45-4993-94B5-06AFA60C5084}
+		{6A0A6781-65B6-4074-8F31-99D862B53E25} = {47AC6D75-8A45-4993-94B5-06AFA60C5084}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F8DDB7FC-9510-477D-98B4-7B94B0400D9D}

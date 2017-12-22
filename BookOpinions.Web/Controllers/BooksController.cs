@@ -84,9 +84,7 @@ namespace BookOpinions.Web.Controllers
         [Route("books/{id:int}")]
         public IActionResult Description(int id)
         {
-            var userId = this.User.GetUserId();
-
-            var vm = this.service.GetBookDescriptionById(id, userId);
+            var vm = this.service.GetBookDescriptionById(id);
 
             return View(vm);
         }
@@ -96,7 +94,8 @@ namespace BookOpinions.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userId = this.User.GetUserId();
+                var userId = this.User.GetUserId(); // my extension method. This is faster way to get user
+                //var user = await userManager.GetUserAsync(HttpContext.User); // a proper way to get logged user
                 if (this.service.AddOpinionForBook(model, userId))
                 {
                     return RedirectToAction(nameof(this.Description), routeValues: new { id = model.BookId });

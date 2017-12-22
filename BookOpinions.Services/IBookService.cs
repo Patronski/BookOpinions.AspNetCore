@@ -10,7 +10,7 @@ namespace BookOpinions.Services
 
         void AddNewBook(string Title, string ImageUrl, string AuthorName);
 
-        BookDescriptionServiceModel GetBookDescriptionById(int id, string userId);
+        BookDescriptionServiceModel GetBookDescriptionById(int id);
 
         bool AddOpinionForBook(CreateOpinionForBookServiceModel model, string currentUserId);
 

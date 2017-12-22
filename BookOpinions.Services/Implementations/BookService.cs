@@ -157,7 +157,7 @@ namespace BookOpinions.Services.Implementations
             Db.SaveChanges();
         }
 
-        public BookDescriptionServiceModel GetBookDescriptionById(int id, string userId)
+        public BookDescriptionServiceModel GetBookDescriptionById(int id)
         {
             var book = this.Db.Books
                 .Where(b => b.Id == id)
