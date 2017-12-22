@@ -20,6 +20,7 @@
         public const string TempDataAddedOpinionMessageKey = "AddedComment";
         public const string TempDataDeletedCommentMessageKey = "DeletedComment";
         public const string TempDataDeleteBookCaptcha = "DeleteBookCaptcha";
+        //public const string TempDataEditedBookSuccsessfully = "EditedBookSuccsessfully";
 
         public const string ConfirmBookDeletion = "delete";
 

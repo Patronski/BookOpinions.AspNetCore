@@ -21,5 +21,9 @@ namespace BookOpinions.Services
         void DeleteBook(int id);
 
         void AddRate(int value, int bookId, string userId);
+
+        EditBookViewModel FindBookForEdit(int id);
+
+        void EditBook(EditBookViewModel bm);
     }
 }

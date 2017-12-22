@@ -144,5 +144,27 @@ namespace BookOpinions.Web.Controllers
             
             return this.RedirectToAction(nameof(this.Description), routeValues: new { id = bookId });
         }
+
+        [Authorize(Roles = WebConstants.AdminRole)]
+        public ActionResult Edit(int id)
+        {
+            var vm = this.service.FindBookForEdit(id);
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = WebConstants.AdminRole)]
+        public ActionResult Edit(EditBookViewModel bm)
+        {
+            if (ModelState.IsValid)
+            {
+                this.service.EditBook(bm);
+                TempData[WebConstants.TempDataAddedBookMessageKey] = $"Successfully edited book {bm.Title}!";
+
+                return this.RedirectToAction(nameof(this.Description), bm.Id);
+            }
+            return this.RedirectToAction(nameof(this.Edit), bm);
+        }
     }
 }

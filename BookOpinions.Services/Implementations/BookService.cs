@@ -253,5 +253,42 @@ namespace BookOpinions.Services.Implementations
             Db.Ratings.Add(rating);
             Db.SaveChanges();
         }
+
+        public EditBookViewModel FindBookForEdit(int id)
+        {
+            Book book = this.Db.Books.Find(id);
+            EditBookViewModel vm = Mapper.Map<EditBookViewModel>(book);
+
+            return vm;
+        }
+
+        public void EditBook(EditBookViewModel model)
+        {
+            var book = Db.Books.Where(b=>b.Id == model.Id)
+                        .Include(b=> b.Image)
+                        .FirstOrDefault();
+
+            if (book != null)
+            {
+                if (model.AuthorNames != null)
+                {
+                    var authors = model
+                        .AuthorNames
+                        .Split(',')
+                        .Select(name => new Author
+                        {
+                            Name = name.Trim(),
+                        })
+                        .ToList();
+
+                    AddAuthorsToBook(authors, book);
+                }
+
+                book.Image.Url = model.ImageUrl;
+                book.Title = model.Title;
+
+                Db.SaveChanges();
+            }
+        }
     }
 }
